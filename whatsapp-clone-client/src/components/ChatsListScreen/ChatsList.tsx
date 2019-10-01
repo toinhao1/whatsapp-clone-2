@@ -1,8 +1,8 @@
 import React from 'react';
-import { chats } from '../../db';
 import moment from 'moment';
 import { List, ListItem } from '@material-ui/core';
 import styled from 'styled-components';
+import { useState, useMemo } from 'react';
 
 const Container = styled.div`
   height: calc(100% - 56px);
@@ -56,27 +56,37 @@ const MessageData = styled.div`
   font-size: 13px;
 `;
 
-const ChatsList: React.FC = () => (
-  <Container>
-    <StyledList>
-      {chats.map(chat => (
-        <StyledListItem key={chat.id} button>
-          <ChatPicture src={chat.picture} alt="Profile" />
-          <ChatInfo>
-            <ChatName>{chat.name}</ChatName>
-            {chat.lastMessage && (
-              <>
-                <MessageContent>{chat.lastMessage.content}</MessageContent>
-                <MessageData>
-                  {moment(chat.lastMessage.createdAt).format('HH:mm')}
-                </MessageData>
-              </>
-            )}
-          </ChatInfo>
-        </StyledListItem>
-      ))}
-    </StyledList>
-  </Container>
-);
+const ChatsList: React.FC = () => {
+  const [chats, setChats] = useState<any[]>([]);
+
+  useMemo(async () => {
+    const body = await fetch(`${process.env.REACT_APP_SERVER_URL}/chats`);
+    const chats = await body.json();
+    setChats(chats);
+  }, []);
+
+  return (
+    <Container>
+      <StyledList>
+        {chats.map(chat => (
+          <StyledListItem key={chat.id} button>
+            <ChatPicture src={chat.picture} alt="Profile" />
+            <ChatInfo>
+              <ChatName>{chat.name}</ChatName>
+              {chat.lastMessage && (
+                <>
+                  <MessageContent>{chat.lastMessage.content}</MessageContent>
+                  <MessageData>
+                    {moment(chat.lastMessage.createdAt).format('HH:mm')}
+                  </MessageData>
+                </>
+              )}
+            </ChatInfo>
+          </StyledListItem>
+        ))}
+      </StyledList>
+    </Container>
+  );
+};
 
 export default ChatsList;
