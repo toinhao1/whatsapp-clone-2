@@ -2,8 +2,12 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "lib": ["es2018", "esnext.asynciterable"],
+    "lib": [
+      "es2018",
+      "esnext.asynciterable"
+    ],
     "skipLibCheck": true,
+    "outDir": "./build",
     "strict": true,
     "strictFunctionTypes": false,
     "strictPropertyInitialization": false,
