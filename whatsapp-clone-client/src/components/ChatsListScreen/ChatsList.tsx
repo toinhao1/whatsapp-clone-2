@@ -93,13 +93,13 @@ const ChatsList: React.FC = () => {
       <StyledList>
         {chats.map(chat => (
           <StyledListItem key={chat.id} button>
-            <ChatPicture src={chat.picture} alt="Profile" />
+            <ChatPicture data-testid="picture" src={chat.picture} alt="Profile" />
             <ChatInfo>
-              <ChatName>{chat.name}</ChatName>
+              <ChatName data-testid="name">{chat.name}</ChatName>
               {chat.lastMessage && (
                 <>
-                  <MessageContent>{chat.lastMessage.content}</MessageContent>
-                  <MessageData>
+                  <MessageContent data-testid="content">{chat.lastMessage.content}</MessageContent>
+                  <MessageData data-testid="date">
                     {moment(chat.lastMessage.createdAt).format('HH:mm')}
                   </MessageData>
                 </>

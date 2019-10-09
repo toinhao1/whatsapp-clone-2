@@ -7,7 +7,7 @@ const apollo_server_express_1 = require("apollo-server-express");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const db_1 = require("./db");
-const schema_1 = __importDefault(require("./schema"));
+const index_1 = __importDefault(require("./schema/index"));
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(express_1.default.json());
@@ -17,7 +17,7 @@ app.get('/_ping', (req, res) => {
 app.get('/chats', (req, res) => {
     res.json(db_1.chats);
 });
-const server = new apollo_server_express_1.ApolloServer({ schema: schema_1.default });
+const server = new apollo_server_express_1.ApolloServer({ schema: index_1.default });
 server.applyMiddleware({
     app,
     path: '/graphql',
