@@ -6,7 +6,7 @@ import schema from '../../src/schema/index';
 describe('Query.chats', () => {
   it('should fetch all chats', async () => {
 
-    const testServer = new ApolloServer(schema);
+    const testServer = new ApolloServer({ schema });
     const { query } = createTestClient(testServer);
 
     const res = await query({
